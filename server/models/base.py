@@ -4,12 +4,9 @@ from common.constDefine import *
 
 #玩家基类
 class Base():
-    #名称
-    name = None
-    #身份
-    identity = USER_IDENTITY_MASTER
-    #技能
-    skills = []
+    name = None  #名称
+    identity = USER_IDENTITY_MASTER  #身份
+    skills = []  #技能
 
     def __init__(self, identity):
         self.identity = identity

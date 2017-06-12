@@ -2,6 +2,7 @@
 
 import struct
 from common.constDefine import *
+from manager.userManager import UserManager
 
 def parse(cmd, raw, session):
     try:
