@@ -3,6 +3,7 @@
 from models.singleton import Singleton
 from logger.log import log
 
+#法官
 class UserManager():
     __metaclass__ = Singleton
 
