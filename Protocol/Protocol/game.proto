@@ -1,378 +1,61 @@
 syntax = "proto3";
 package game;
 
-// 斗地主开放配置
-// gameType
-// app_id
-// max_rounds 最大局数
-// chips 消耗金币数
-// options 玩法 叫地主 叫分 欢乐斗地主
-
-message CreateRoomRequest {
-    uint32 room_id = 1;  // 6位房间号
-    string owner = 2;  // 房主UUID
-    string kwargs = 3;  // json 创建房间参数，由具体游戏各自解析字段
-    string room_uuid = 4; // 房间唯一标识
+//心跳
+message heart {
+    string uuid = 1;  //玩家UUID
+    string ext = 2;  //扩展字段
 }
 
-message CreateRoomResponse {
-    uint32 code = 1;  // 返回开房结果
+//连接服务器
+message connect {
+    string userId = 1;  //玩家唯一ID
+    string deviceId = 2;  //玩家设备ID
 }
 
-//ENTER_ROOM = 0x1005  # 进入房间
-message EnterRoomRequest {
-    uint32 room_id = 1;  // 6位房间号
-    string player = 2;  // 玩家UUID
-    string info = 3;  // 玩家详细信息
+//退出服务器
+message exit {
+    string userId = 1;  //玩家唯一ID
 }
 
-message EnterRoomResponse {
-    uint32 code = 1;  // 返回进入房间结果
-    uint32 room_id = 2;  // 6位房间号
-    string owner = 3;  // 房主UUID
-    string kwargs = 4;  // json 创建房间参数，由具体游戏各自解析字段
-
-    message Player {  // 同房其他玩家信息
-        uint32 seat = 1;  // 座位号
-        string player = 2;  // 玩家UUID
-        string info = 3;  // 玩家详细信息
-        uint32 status = 4;  // 玩家状态
-        bool is_online = 5;  // 是否在线
-        uint32 total_score = 6;  // 玩家累计总分
-    }
-
-    repeated Player player = 5;
+//加入房间
+message joinRoom {
+    string roomId = 1;  //房间ID
+    string userId = 2;  //玩家唯一ID
 }
 
-// Enter_Room_Other = 0x1015 # 其他玩家进入房间
-message EnterRoomOtherResponse {
-    uint32 code = 1;  // 返回进入房间结果
-    string player = 2;  // 玩家UUID
-    uint32 seat = 3;  // 座位号
-    string info = 4;  // 玩家详细信息
+//退出房间
+message exitRoom {
+    string roomId = 1;  //房间ID
+    string userId = 2;  //玩家唯一ID
 }
 
-message EnterRoomWebResponse {
-    uint32 code = 1;  // 返回进入房间结果
-    uint32 room_id = 2;  // 6位房间号
-    string player = 3;  // 玩家UUID
-    uint32 game_type = 4;
-    uint32 app_id = 5;
+//解散房间
+message dismissRoom {
+    string roomId = 1;  //房间ID
 }
 
-//EXIT_ROOM = 0x1007  # 退出房间
-message ExitRoomRequest {}
-
-message ExitRoomResponse {
-    uint32 code = 1;  // 返回退出房间结果
-    string player = 2;  // 玩家UUID
+//准备
+message ready {
+    string roomId = 1;  //玩家唯一ID
 }
 
-message ExitRoomWebResponse {
-    uint32 code = 1;  // 返回退出房间结果
-    uint32 room_id = 2;  // 6位房间号
-    string player = 3;  // 玩家UUID
-    uint32 game_type = 4;
-    uint32 app_id = 5;
+//投票
+message vote {
+    string userId = 1;  //玩家唯一ID
+    string otherId = 2;  //被投票的玩家唯一ID
 }
 
-//DISMISS_ROOM = 0x1006  # 解散房间
-message DismissRoomRequest {}
-
-message DismissRoomResponse {
-    uint32 code = 1;  // 返回解散房间结果
-    uint32 flag = 2;  // 0 房主发起解散 1 投票发起解散
+//发言
+message speak {
+    string userId = 1;  //玩家唯一ID
+    string msg = 2;  //说话内容
+    uint32 type = 3;  //类型 0：语音  1：文本
 }
 
-//web 强制解散房间接口
-message DismissRoomWebRequest {
-    uint32 room_id = 1;  // 6位房间号
-    uint32 game_type = 2;
-    uint32 app_id = 3;
-    string owner = 4;
-    string room_uuid = 5;
-}
-
-message DismissRoomWebResponse {
-    uint32 code = 1;  // 返回解散房间结果
-    uint32 room_id = 2;  // 6位房间号
-    uint32 game_type = 3;
-    uint32 app_id = 4;
-    string owner = 5;
-}
-
-// web 查询房间是否存在接口
-message ExistRoomWebRequest {
-	uint32 room_id = 1;
-}
-
-message ExistRoomWebResponse {
-	bool flag = 1;
-}
-
-
-// 退款
-message RefundWebResponse {
-    uint32 code = 1;  
-    uint32 room_id = 2;  // 6位房间号
-    uint32 game_type = 3;
-    uint32 app_id = 4;
-    string owner = 5;
-    string room_uuid = 6;
-}
-
-// SPONSOR_VOTE = 0x1009 发起投票解散房间
-message SponsorVoteResponse {
-    uint32 room_id = 1;  // 6位房间号
-    string sponsor = 3;  // 发起投票玩家UUID
-    uint32 expire_seconds = 4; // 投票超时时间
-}
-
-// VOTE = 0x1037 玩家投票
-message PlayerVoteRequest {
-    bool flag = 1;
-}
-
-// 玩家投票广播
-message PlayerVoteResponse {
-    bool flag = 1;
-    string player = 2;
-}
-
-// HEARTBEAT = 0x000F
-message HeartbeatRequest {}
-
-message HeartbeatResponse {}
-
-
-message Card {
-    uint32 card = 1;  // 牌
-}
-
-
-//RECONNECT = 0x1014  # 玩家断线重连
-message ReconnectResponse {
-    uint32 room_id = 1;  // 6位房间号
-    string kwargs = 2;  // json 创建房间参数，由具体游戏各自解析字段
-    string owner = 3;  // 房主UUID
-
-    uint32 room_status = 4;  // 房间状态（）
-    uint32 current_round = 5;  // 当前局数
-    string laird_player = 6;  // 地主uuid
-    string discard_player = 7;  // 当前出牌玩家的uuid
-    string rob_player = 8;  // 当前抢地主玩家的uuid
-    int32 base_score = 9;  // 底分
-    int32 score = 10;  // 总分
-    int32 multiple = 11;  // 翻倍数
-    repeated Card  three_cards = 12;  // 三张底牌
-    int32 boom_cnt = 13;  // 本局中炸弹次数
-
-    message Player {  // 同房其他玩家信息
-        int32 seat = 1;  // 座位号
-        string player = 2;  // 玩家UUID
-        string info = 3;  // 玩家详细信息
-        uint32 status = 4;  // 玩家状态（0,noready,1,ready,2,playing,3,结算）
-        uint32 is_online = 5;  // 是否在线
-        int32 total_score = 6;  // 玩家累计总分
-        int32 rob_flag = 7;  // 玩家本局抢地主的决定
-        int32 rob_score = 8;  // 玩家本局抢地主的分数
-        int32 score = 9;  // 玩家本局分数
-        int32 boom_cnt = 10;  // 玩家本局炸弹次数
-
-        repeated Card cards_in_hand = 11;  // 手牌
-        repeated Card cards_discard = 12;  // 打出去的牌
-    }
-
-    repeated Player player = 14;
-    uint32 code = 15;
-    string prev_discard_player = 16;  // 上个出牌玩家的UUID
-    repeated Card prev_discard_cards = 17;  // 上个玩家出的牌
-//    uint32 is_pass_for_prev_discard_cards = 18;  // 上个玩家出的牌，是否为pass，1：是pass；2：不是pass
-
-	string show_a_player = 19;  //亮主A的玩家
-    string show_a_ex_player = 20;  //亮次A的玩家
-    int32 show_a_card = 21;  //亮的A牌
-	int32 is_all_show_a = 22;  //大A玩家是否全部出现
-    int32 tableType = 23; //0 亮一个A  1 亮双A  2 反A
-    int32 singleFlag = 24;  //0 非独8  1 独8
-    string otherAPlayer = 25;  // 另一个A所属于的玩家
-}
-
-// ONLINE_STATUS = 0x1016  玩家上线离线广播
-message OnlineStatusResponse {
-    string player = 1;  // 玩家UUID
-    bool status = 2;  // 0 离线 1 上线
-}
-
-//READY = 0x1012
-message ReadyRequest {}
-
-message ReadyResponse {
-    string player = 1;  // 玩家UUID
-}
-
-message ShowARequest {
-	uint32 flag = 1;  // 1亮主A  2亮次A  3亮双A
-	Card card = 2;  //亮的牌 
-}
-
-message ShowAResponse {
-	string player = 1;  //亮A成功的玩家
-	Card card = 2;  //亮的牌
-	uint32 status = 3;  //房间状态
-}
-
-message OpposeARequest {
-	repeated Card cards = 1;  //反A的牌
-}
-
-message OpposeAResponse {
-	string player = 1;  //反A成功的玩家
-	repeated Card cards = 2;  //反A成功的牌
-	uint32 status = 3; //房间状态
-}
-
-message Give_up_Request {}
-
-message Give_up_Response {}
-
-//取牌
-message TakeCardRequest {
-    repeated Card card = 1;
-}
-
-message PlayerInfo {
-	string uuid = 1;  //玩家UUID
-	uint32 num = 2;  //玩家当前剩余牌的数量
-}
-
-//DEAL = 0x2005
-message DealResponse {
-    string first_rob_uuid = 1;  // 第一个可以叫地主的玩家UUID
-    repeated Card cards_in_hand = 2;  // 发的手牌
-    repeated Card three_cards = 3;  // 三张底牌
-	repeated PlayerInfo players = 4;  //玩家剩余牌数量
-}
-
-//Rob = 0x1024  叫地主或叫分
-message RobRequest {
-    uint32 flag = 1;  // 叫地主，欢乐斗地主和叫地主需要，1为叫地主，2为不叫
-    uint32 score = 2;  // 叫分，叫分需要
-}
-message RobResponse {
-    uint32 flag = 1;  // 叫地主，欢乐斗地主和叫地主需要，1为叫地主，2为不叫
-    uint32 score = 2;  // 叫分，叫分需要
-    string player = 3;  // 玩家UUID
-    string next_rob_player = 4;  // 下一个叫玩家UUID，如果为空则表示结束
-    string laird_player = 5;  // 最后成为地主玩家UUID，如果为空且下一个叫地主的玩家也为空，则表示重新发牌，都没叫
-    string prev_rob_player = 6;  // 上一个叫玩家UUID
-}
-
-//DISCARD = 0x1021  出牌
-message DiscardRequest {
-    repeated Card card = 1;  // 如果为空，则表示出的是pass
-}
-// 牌型
-// CARD_TYPE_ERRO = 0  # 非法
-// CARD_TYPE_DANZ = 1  # 单张
-// CARD_TYPE_YDUI = 2  # 一对
-// CARD_TYPE_SANZ = 3  # 三张牌（什么也不带）
-// CARD_TYPE_SDYI = 4  # 三带一（带一张单牌）
-// CARD_TYPE_SDER = 5  # 三带二（带一对）
-// CARD_TYPE_DANS = 6  # 单顺子
-// CARD_TYPE_LDUI = 7  # 连对（双顺子）
-// CARD_TYPE_SANS = 8  # 三顺子，飞机（什么都不带）
-// CARD_TYPE_SSDY = 9  # 三顺子，飞机（带单牌）
-// CARD_TYPE_SSDE = 10  # 三顺子，飞机（带对）
-// CARD_TYPE_ZHAD = 11  # 炸弹
-// CARD_TYPE_HUOJ = 12  # 王炸，火箭
-// CARD_TYPE_SDLZ = 13  # 四带二（带两张单牌）
-// CARD_TYPE_SDLD = 14  # 四带二（带两对）
-// CARD_TYPE_PASS = 15  # pass
-message DiscardResponse {
-    repeated Card card = 1;
-    string player = 2;  // 玩家UUID
-    uint32 card_type = 3;
-    string next_discard_player = 4;  // 下一个出牌的玩家uuid
-	int32 is_all_show_a = 5;  //大A玩家是否全部出现
-    int32 tableType = 6; //0 亮一个A  1 亮双A  2 反A
-    int32 singleFlag = 7;  //0 非独8  1 独8
-    string otherAPlayer = 8;  // 另一个A所属于的玩家
-}
-
-// SYNCHRONISE_CARDS = 0x1011  # 服务端主动同步手牌
-message SynchroniseCardsResponse {
-    repeated Card card = 1;
-}
-
-//SPEAKER = 0x1002  # 超级广播命令
-message SpeakerRequest {
-    string content = 1;
-}
-
-message SpeakerResponse {
-    string player = 1;
-    string content = 2;
-}
-
-
-//SETTLEMENT_FOR_ROUND = 0x2004
-message SettleForRoundResponse {
-    uint32 base_score = 1;  // 当局底分
-    uint32 multiple = 2;  // 当局倍数
-    message PlayerData {
-        string player = 1;  // 玩家UUID
-        repeated Card cards_in_hand = 2;  // 玩家手牌
-        int32 score = 3;  // 玩家当局分数
-        int32 total = 4;  // 玩家累计总分
-        uint32 bomb_count = 5;  // 玩家出了的炸弹数
-        int32 is_win = 6;  // 玩家是输是赢, 1：赢 2：平局  3；输
-		uint32 is_a = 7;//是否亮A方 0：不是； 1是；
-    }
-    repeated PlayerData player_data = 3;
-    uint32 is_spring = 4;  // 春天或反春；0：没有；1：春天；2：反春
-}
-//SETTLEMENT_FOR_ROOM = 0x2006
-message SettleForRoomResponse {
-    uint32 flag = 1;  // 判断是正常完成所有局数还是解散房间 0 投票解散结算 1 正常解散
-    message PlayerData {
-        string player = 1;  // 玩家UUID
-        uint32 seat = 2;  // 玩家座位号
-        int32 total_score = 3;  // 玩家总分
-        int32 top_score = 4;  // 玩家最高分
-        uint32 win_total_cnt = 5;  // 玩家赢牌总次数
-        uint32 is_owner = 6;  // 是否为房主
-        uint32 rewardchip = 7;  // 奖励金币
-        uint32 all_boom_cnt = 8;  // 总炸弹次数
-        uint32 lose_total_cnt = 9;  // 玩家输牌总次数
-		uint32 dogfall_total_cnt = 10;  //玩家平局总次数
-    }
-    repeated PlayerData player_data = 2;
-}
-
-
-// 向web汇报负载，每当一个房间开局后向web汇报一次， 每当一个房间大结算完后也汇报一次
-message LoadPlusWebResponse {
-    string addr = 1;
-    uint32 port = 2;
-}
-
-message LoadMinusWebResponse {
-    string addr = 1;
-    uint32 port = 2;
-}
-
-// 提供web查询本进程的负载
-message LoadBalanceWebResponse {
-    message Unit {
-        uint32 room_id = 1;  // 6位房间号
-        uint32 room_status = 2; //房间状态
-        repeated string player = 3; // 在房间的玩家UUID
-        string owner = 4;
-        uint32 game_type = 5;
-        uint32 app_id = 6;
-        string room_uuid = 7;
-        uint32 st = 8;
-    }
-    repeated Unit unit = 1;
+//释放技能
+message skill {
+    string userId = 1;  //玩家唯一ID
+    uint32 sid = 2;  //技能ID
+    string targetId = 3;  //技能施放对象ID
 }

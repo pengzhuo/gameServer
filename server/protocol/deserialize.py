@@ -2,6 +2,7 @@
 
 import struct
 from common.constDefine import *
+from protocol import game_pb2
 
 def parse(cmd, raw, session):
     try:
@@ -42,7 +43,9 @@ def dealUserHeart(string, session):
 
 #玩家发起连接
 def dealUserConn(string, session):
-    pass
+    proto = game_pb2.connect()
+    proto.ParseFromString(string)
+    print proto
 
 #玩家断开连接
 def dealUserExit(string, session):
