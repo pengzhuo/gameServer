@@ -13,10 +13,10 @@ class Client(Protocol):
 
     def connectionMade(self):
         self.uuid = str(uuid1())
-        log.info("user {0} connect !".format(self))
+        log().info("user {0} connect !".format(self.uuid))
 
     def connectionLost(self, reason):
-        UserManager().delUser(self)
+        UserManager().delUser(self.uuid)
 
     def dataReceived(self, data):
         receive(data, self)

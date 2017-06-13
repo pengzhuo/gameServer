@@ -18,7 +18,7 @@ class Room():
     def addUser(self, user):
         ret = False
         if user.uuid in self.users.keys():
-            log.error("addUser error ! uuid {0} is exists!".format(user.uuid))
+            log().error("addUser error ! uuid {0} is exists!".format(user.uuid))
         else:
             self.users[user.uuid] = user
             ret = True
@@ -31,5 +31,5 @@ class Room():
             del self.users[uuid]
             ret = True
         else:
-            log.error("delUser error ! uuid {0} is not exists!".format(uuid))
+            log().error("delUser error ! uuid {0} is not exists!".format(uuid))
         return ret

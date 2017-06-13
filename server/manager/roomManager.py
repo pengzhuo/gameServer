@@ -18,7 +18,7 @@ class RoomManager():
         ret = False
         room_id = 10000
         if room_id in self.rooms.keys():
-            log.error("createRoom error ! masterId:{0}, roomId:{1} roomId have already exists!".format(master_id, room_id))
+            log().error("createRoom error ! masterId:{0}, roomId:{1} roomId have already exists!".format(master_id, room_id))
         else:
             room = Room(room_id, master_id)
             self.rooms[room_id] = room
@@ -32,7 +32,7 @@ class RoomManager():
             del self.rooms[room_id]
             ret = True
         else:
-            log.error("dismissRoom error ! roomId:{0} is not exists!".format(room_id))
+            log().error("dismissRoom error ! roomId:{0} is not exists!".format(room_id))
         return ret
 
     #查找房间
@@ -41,7 +41,7 @@ class RoomManager():
         if room_id in self.rooms.keys():
             room = self.rooms[room_id]
         else:
-            log.error("findRoom error! roomId:{0} is not exists!".format(room_id))
+            log().error("findRoom error! roomId:{0} is not exists!".format(room_id))
         return room
 
     #更新房间信息
@@ -51,5 +51,5 @@ class RoomManager():
             self.rooms[room.room_id] = room
             ret = True
         else:
-            log.error("updateRoom error! roomId:{0} is not exists!".format(room.room_id))
+            log().error("updateRoom error! roomId:{0} is not exists!".format(room.room_id))
         return ret

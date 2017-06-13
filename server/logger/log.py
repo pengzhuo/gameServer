@@ -1,18 +1,26 @@
 # coding: utf-8
+
+import logging
 from models.singleton import Singleton
-from twisted.python import log as mLog
 
 class log():
     __metaclass__ = Singleton
 
+    def __init__(self):
+        logging.basicConfig(level=logging.DEBUG,
+                            format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+                            datefmt='%a, %d %b %Y %H:%M:%S',
+                            filename='game.log',
+                            filemode='w')
+
     def debug(self, msg):
-        mLog.msg(msg)
+        logging.debug(msg)
 
     def info(self, msg):
-        mLog.msg(msg)
+        logging.info(msg)
 
     def warn(self, msg):
-        mLog.msg(msg)
+        logging.warning(msg)
 
     def error(self, msg):
-        mLog.err(msg)
+        logging.error(msg)
