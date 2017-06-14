@@ -2,12 +2,13 @@
 
 from models.judge import Judge
 from logger.log import log
+from protocol.serialize import send
 
 class Room():
     room_id = -1  #房间ID
     master_id = -1  #房主ID
     room_type = -1  #房间类型
-    max_num = 0  #房间最大玩家数量
+    max_num = 5  #房间最大玩家数量
     users = None  #房间的玩家
     judge = None  #法官
 
@@ -22,6 +23,17 @@ class Room():
             return True
         else:
             return False
+
+    # 发送消息给所有玩家
+    # cmd  命令码
+    # proto  内容
+    # flag  默认True为给全部玩家发送， False为给除自己外的所有玩家发送
+    def sendMsgToAllUsers(self, cmd, proto, session, flag=True):
+        for user in self.users.values():
+            if not flag and user.uuid == session.uuid:
+                continue
+            else:
+                send(cmd, proto, user)
 
     #添加玩家
     def addUser(self, user):
@@ -45,8 +57,9 @@ class Room():
 
     #解散房间
     def dismiss(self):
-        for user in self.users:
+        for user in self.users.values():
             user.room_id = 0
+        self.users.clear()
 
     #玩家发言
     def speak(self, userId, type, msg):
@@ -66,7 +79,7 @@ class Room():
     #玩家准备
     def ready(self):
         flag = True
-        for user in self.users:
+        for user in self.users.values():
             if user.status == 0:
                 flag = False
                 break

@@ -84,10 +84,11 @@ def joinRoom(string, session):
         else:
             proto_res.status = 1
             log().error("room {0} is full!".format(proto.roomId))
+        room.sendMsgToAllUsers(USER_JOIN_ROOM_RES, proto_res, session)
     else:
         proto_res.status = 2
         log().error("room {0} is not exists!".format(proto.roomId))
-    send(USER_JOIN_ROOM_RES, proto_res, session)
+        send(USER_JOIN_ROOM_RES, proto_res, session)
 
 #玩家退出房间
 def exitRoom(string, session):
@@ -97,6 +98,11 @@ def exitRoom(string, session):
     if room is not None:
         room.delUser(session)
     session.room_id = 0
+
+    proto_res = game_pb2.exitRoom_res()
+    proto_res.status = 0
+    proto_res.userId = session.userId
+
 
 #解散房间
 def dismissRoom(string, session):

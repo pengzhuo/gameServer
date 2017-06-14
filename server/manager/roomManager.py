@@ -12,11 +12,12 @@ class RoomManager():
 
     def __init__(self):
         self.rooms = {}
+        self.createRoom("10000")
 
     #创建房间
     def createRoom(self, master_id):
         ret = False
-        room_id = 10000
+        room_id = "10000"
         if room_id in self.rooms.keys():
             log().error("createRoom error ! masterId:{0}, roomId:{1} roomId have already exists!".format(master_id, room_id))
         else:
