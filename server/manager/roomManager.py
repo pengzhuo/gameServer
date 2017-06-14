@@ -29,6 +29,7 @@ class RoomManager():
     def dismissRoom(self, room_id):
         ret = False
         if room_id in self.rooms.keys():
+            self.rooms[room_id].dismiss()
             del self.rooms[room_id]
             ret = True
         else:

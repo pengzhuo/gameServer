@@ -8,4 +8,5 @@ class Judge():
         self.room = room
 
     def start(self):
+        #分配身份
         pass

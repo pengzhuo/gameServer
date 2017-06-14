@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='game.proto',
   package='game',
   syntax='proto3',
-  serialized_pb=_b('\n\ngame.proto\x12\x04game\"\"\n\x05heart\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12\x0b\n\x03\x65xt\x18\x02 \x01(\t\"+\n\x07\x63onnect\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x10\n\x08\x64\x65viceId\x18\x02 \x01(\t\"\x16\n\x04\x65xit\x12\x0e\n\x06userId\x18\x01 \x01(\t\"*\n\x08joinRoom\x12\x0e\n\x06roomId\x18\x01 \x01(\t\x12\x0e\n\x06userId\x18\x02 \x01(\t\"*\n\x08\x65xitRoom\x12\x0e\n\x06roomId\x18\x01 \x01(\t\x12\x0e\n\x06userId\x18\x02 \x01(\t\"\x1d\n\x0b\x64ismissRoom\x12\x0e\n\x06roomId\x18\x01 \x01(\t\"\x17\n\x05ready\x12\x0e\n\x06roomId\x18\x01 \x01(\t\"\'\n\x04vote\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0f\n\x07otherId\x18\x02 \x01(\t\"2\n\x05speak\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0b\n\x03msg\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\r\"6\n\x05skill\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0b\n\x03sid\x18\x02 \x01(\r\x12\x10\n\x08targetId\x18\x03 \x01(\tb\x06proto3')
+  serialized_pb=_b('\n\ngame.proto\x12\x04game\"\"\n\x05heart\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12\x0b\n\x03\x65xt\x18\x02 \x01(\t\"\x18\n\theart_res\x12\x0b\n\x03\x65xt\x18\x01 \x01(\t\"+\n\x07\x63onnect\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x10\n\x08\x64\x65viceId\x18\x02 \x01(\t\"\x1d\n\x0b\x63onnect_res\x12\x0e\n\x06status\x18\x01 \x01(\r\"\x16\n\x04\x65xit\x12\x0e\n\x06userId\x18\x01 \x01(\t\"*\n\x08\x65xit_res\x12\x0e\n\x06status\x18\x01 \x01(\r\x12\x0e\n\x06userId\x18\x02 \x01(\t\"*\n\x08joinRoom\x12\x0e\n\x06roomId\x18\x01 \x01(\t\x12\x0e\n\x06userId\x18\x02 \x01(\t\".\n\x0cjoinRoom_res\x12\x0e\n\x06status\x18\x01 \x01(\r\x12\x0e\n\x06userId\x18\x02 \x01(\t\"*\n\x08\x65xitRoom\x12\x0e\n\x06roomId\x18\x01 \x01(\t\x12\x0e\n\x06userId\x18\x02 \x01(\t\".\n\x0c\x65xitRoom_res\x12\x0e\n\x06status\x18\x01 \x01(\r\x12\x0e\n\x06userId\x18\x02 \x01(\t\"\x1d\n\x0b\x64ismissRoom\x12\x0e\n\x06roomId\x18\x01 \x01(\t\"1\n\x0f\x64ismissRoom_res\x12\x0e\n\x06status\x18\x01 \x01(\r\x12\x0e\n\x06userId\x18\x02 \x01(\t\"\x17\n\x05ready\x12\x0e\n\x06roomId\x18\x01 \x01(\t\"+\n\tready_res\x12\x0e\n\x06status\x18\x01 \x01(\r\x12\x0e\n\x06userId\x18\x02 \x01(\t\"\'\n\x04vote\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0f\n\x07otherId\x18\x02 \x01(\t\";\n\x08vote_res\x12\x0e\n\x06status\x18\x01 \x01(\r\x12\x0e\n\x06userId\x18\x02 \x01(\t\x12\x0f\n\x07otherId\x18\x03 \x01(\t\"2\n\x05speak\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0b\n\x03msg\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\r\"6\n\tspeak_res\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0b\n\x03msg\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\r\"6\n\x05skill\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0b\n\x03sid\x18\x02 \x01(\r\x12\x10\n\x08targetId\x18\x03 \x01(\t\"=\n\tskill_res\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0e\n\x06status\x18\x02 \x01(\r\x12\x10\n\x08targetId\x18\x03 \x01(\tb\x06proto3')
 )
 
 
@@ -63,6 +63,37 @@ _HEART = _descriptor.Descriptor(
 )
 
 
+_HEART_RES = _descriptor.Descriptor(
+  name='heart_res',
+  full_name='game.heart_res',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='ext', full_name='game.heart_res.ext', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=56,
+  serialized_end=80,
+)
+
+
 _CONNECT = _descriptor.Descriptor(
   name='connect',
   full_name='game.connect',
@@ -96,8 +127,39 @@ _CONNECT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=56,
-  serialized_end=99,
+  serialized_start=82,
+  serialized_end=125,
+)
+
+
+_CONNECT_RES = _descriptor.Descriptor(
+  name='connect_res',
+  full_name='game.connect_res',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='status', full_name='game.connect_res.status', index=0,
+      number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=127,
+  serialized_end=156,
 )
 
 
@@ -127,8 +189,46 @@ _EXIT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=101,
-  serialized_end=123,
+  serialized_start=158,
+  serialized_end=180,
+)
+
+
+_EXIT_RES = _descriptor.Descriptor(
+  name='exit_res',
+  full_name='game.exit_res',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='status', full_name='game.exit_res.status', index=0,
+      number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='userId', full_name='game.exit_res.userId', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=182,
+  serialized_end=224,
 )
 
 
@@ -165,8 +265,46 @@ _JOINROOM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=125,
-  serialized_end=167,
+  serialized_start=226,
+  serialized_end=268,
+)
+
+
+_JOINROOM_RES = _descriptor.Descriptor(
+  name='joinRoom_res',
+  full_name='game.joinRoom_res',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='status', full_name='game.joinRoom_res.status', index=0,
+      number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='userId', full_name='game.joinRoom_res.userId', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=270,
+  serialized_end=316,
 )
 
 
@@ -203,8 +341,46 @@ _EXITROOM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=169,
-  serialized_end=211,
+  serialized_start=318,
+  serialized_end=360,
+)
+
+
+_EXITROOM_RES = _descriptor.Descriptor(
+  name='exitRoom_res',
+  full_name='game.exitRoom_res',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='status', full_name='game.exitRoom_res.status', index=0,
+      number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='userId', full_name='game.exitRoom_res.userId', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=362,
+  serialized_end=408,
 )
 
 
@@ -234,8 +410,46 @@ _DISMISSROOM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=213,
-  serialized_end=242,
+  serialized_start=410,
+  serialized_end=439,
+)
+
+
+_DISMISSROOM_RES = _descriptor.Descriptor(
+  name='dismissRoom_res',
+  full_name='game.dismissRoom_res',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='status', full_name='game.dismissRoom_res.status', index=0,
+      number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='userId', full_name='game.dismissRoom_res.userId', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=441,
+  serialized_end=490,
 )
 
 
@@ -265,8 +479,46 @@ _READY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=244,
-  serialized_end=267,
+  serialized_start=492,
+  serialized_end=515,
+)
+
+
+_READY_RES = _descriptor.Descriptor(
+  name='ready_res',
+  full_name='game.ready_res',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='status', full_name='game.ready_res.status', index=0,
+      number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='userId', full_name='game.ready_res.userId', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=517,
+  serialized_end=560,
 )
 
 
@@ -303,8 +555,53 @@ _VOTE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=269,
-  serialized_end=308,
+  serialized_start=562,
+  serialized_end=601,
+)
+
+
+_VOTE_RES = _descriptor.Descriptor(
+  name='vote_res',
+  full_name='game.vote_res',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='status', full_name='game.vote_res.status', index=0,
+      number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='userId', full_name='game.vote_res.userId', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='otherId', full_name='game.vote_res.otherId', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=603,
+  serialized_end=662,
 )
 
 
@@ -348,8 +645,53 @@ _SPEAK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=310,
-  serialized_end=360,
+  serialized_start=664,
+  serialized_end=714,
+)
+
+
+_SPEAK_RES = _descriptor.Descriptor(
+  name='speak_res',
+  full_name='game.speak_res',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='userId', full_name='game.speak_res.userId', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='msg', full_name='game.speak_res.msg', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='type', full_name='game.speak_res.type', index=2,
+      number=3, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=716,
+  serialized_end=770,
 )
 
 
@@ -393,20 +735,75 @@ _SKILL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=362,
-  serialized_end=416,
+  serialized_start=772,
+  serialized_end=826,
+)
+
+
+_SKILL_RES = _descriptor.Descriptor(
+  name='skill_res',
+  full_name='game.skill_res',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='userId', full_name='game.skill_res.userId', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='status', full_name='game.skill_res.status', index=1,
+      number=2, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='targetId', full_name='game.skill_res.targetId', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=828,
+  serialized_end=889,
 )
 
 DESCRIPTOR.message_types_by_name['heart'] = _HEART
+DESCRIPTOR.message_types_by_name['heart_res'] = _HEART_RES
 DESCRIPTOR.message_types_by_name['connect'] = _CONNECT
+DESCRIPTOR.message_types_by_name['connect_res'] = _CONNECT_RES
 DESCRIPTOR.message_types_by_name['exit'] = _EXIT
+DESCRIPTOR.message_types_by_name['exit_res'] = _EXIT_RES
 DESCRIPTOR.message_types_by_name['joinRoom'] = _JOINROOM
+DESCRIPTOR.message_types_by_name['joinRoom_res'] = _JOINROOM_RES
 DESCRIPTOR.message_types_by_name['exitRoom'] = _EXITROOM
+DESCRIPTOR.message_types_by_name['exitRoom_res'] = _EXITROOM_RES
 DESCRIPTOR.message_types_by_name['dismissRoom'] = _DISMISSROOM
+DESCRIPTOR.message_types_by_name['dismissRoom_res'] = _DISMISSROOM_RES
 DESCRIPTOR.message_types_by_name['ready'] = _READY
+DESCRIPTOR.message_types_by_name['ready_res'] = _READY_RES
 DESCRIPTOR.message_types_by_name['vote'] = _VOTE
+DESCRIPTOR.message_types_by_name['vote_res'] = _VOTE_RES
 DESCRIPTOR.message_types_by_name['speak'] = _SPEAK
+DESCRIPTOR.message_types_by_name['speak_res'] = _SPEAK_RES
 DESCRIPTOR.message_types_by_name['skill'] = _SKILL
+DESCRIPTOR.message_types_by_name['skill_res'] = _SKILL_RES
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 heart = _reflection.GeneratedProtocolMessageType('heart', (_message.Message,), dict(
@@ -416,12 +813,26 @@ heart = _reflection.GeneratedProtocolMessageType('heart', (_message.Message,), d
   ))
 _sym_db.RegisterMessage(heart)
 
+heart_res = _reflection.GeneratedProtocolMessageType('heart_res', (_message.Message,), dict(
+  DESCRIPTOR = _HEART_RES,
+  __module__ = 'game_pb2'
+  # @@protoc_insertion_point(class_scope:game.heart_res)
+  ))
+_sym_db.RegisterMessage(heart_res)
+
 connect = _reflection.GeneratedProtocolMessageType('connect', (_message.Message,), dict(
   DESCRIPTOR = _CONNECT,
   __module__ = 'game_pb2'
   # @@protoc_insertion_point(class_scope:game.connect)
   ))
 _sym_db.RegisterMessage(connect)
+
+connect_res = _reflection.GeneratedProtocolMessageType('connect_res', (_message.Message,), dict(
+  DESCRIPTOR = _CONNECT_RES,
+  __module__ = 'game_pb2'
+  # @@protoc_insertion_point(class_scope:game.connect_res)
+  ))
+_sym_db.RegisterMessage(connect_res)
 
 exit = _reflection.GeneratedProtocolMessageType('exit', (_message.Message,), dict(
   DESCRIPTOR = _EXIT,
@@ -430,12 +841,26 @@ exit = _reflection.GeneratedProtocolMessageType('exit', (_message.Message,), dic
   ))
 _sym_db.RegisterMessage(exit)
 
+exit_res = _reflection.GeneratedProtocolMessageType('exit_res', (_message.Message,), dict(
+  DESCRIPTOR = _EXIT_RES,
+  __module__ = 'game_pb2'
+  # @@protoc_insertion_point(class_scope:game.exit_res)
+  ))
+_sym_db.RegisterMessage(exit_res)
+
 joinRoom = _reflection.GeneratedProtocolMessageType('joinRoom', (_message.Message,), dict(
   DESCRIPTOR = _JOINROOM,
   __module__ = 'game_pb2'
   # @@protoc_insertion_point(class_scope:game.joinRoom)
   ))
 _sym_db.RegisterMessage(joinRoom)
+
+joinRoom_res = _reflection.GeneratedProtocolMessageType('joinRoom_res', (_message.Message,), dict(
+  DESCRIPTOR = _JOINROOM_RES,
+  __module__ = 'game_pb2'
+  # @@protoc_insertion_point(class_scope:game.joinRoom_res)
+  ))
+_sym_db.RegisterMessage(joinRoom_res)
 
 exitRoom = _reflection.GeneratedProtocolMessageType('exitRoom', (_message.Message,), dict(
   DESCRIPTOR = _EXITROOM,
@@ -444,12 +869,26 @@ exitRoom = _reflection.GeneratedProtocolMessageType('exitRoom', (_message.Messag
   ))
 _sym_db.RegisterMessage(exitRoom)
 
+exitRoom_res = _reflection.GeneratedProtocolMessageType('exitRoom_res', (_message.Message,), dict(
+  DESCRIPTOR = _EXITROOM_RES,
+  __module__ = 'game_pb2'
+  # @@protoc_insertion_point(class_scope:game.exitRoom_res)
+  ))
+_sym_db.RegisterMessage(exitRoom_res)
+
 dismissRoom = _reflection.GeneratedProtocolMessageType('dismissRoom', (_message.Message,), dict(
   DESCRIPTOR = _DISMISSROOM,
   __module__ = 'game_pb2'
   # @@protoc_insertion_point(class_scope:game.dismissRoom)
   ))
 _sym_db.RegisterMessage(dismissRoom)
+
+dismissRoom_res = _reflection.GeneratedProtocolMessageType('dismissRoom_res', (_message.Message,), dict(
+  DESCRIPTOR = _DISMISSROOM_RES,
+  __module__ = 'game_pb2'
+  # @@protoc_insertion_point(class_scope:game.dismissRoom_res)
+  ))
+_sym_db.RegisterMessage(dismissRoom_res)
 
 ready = _reflection.GeneratedProtocolMessageType('ready', (_message.Message,), dict(
   DESCRIPTOR = _READY,
@@ -458,12 +897,26 @@ ready = _reflection.GeneratedProtocolMessageType('ready', (_message.Message,), d
   ))
 _sym_db.RegisterMessage(ready)
 
+ready_res = _reflection.GeneratedProtocolMessageType('ready_res', (_message.Message,), dict(
+  DESCRIPTOR = _READY_RES,
+  __module__ = 'game_pb2'
+  # @@protoc_insertion_point(class_scope:game.ready_res)
+  ))
+_sym_db.RegisterMessage(ready_res)
+
 vote = _reflection.GeneratedProtocolMessageType('vote', (_message.Message,), dict(
   DESCRIPTOR = _VOTE,
   __module__ = 'game_pb2'
   # @@protoc_insertion_point(class_scope:game.vote)
   ))
 _sym_db.RegisterMessage(vote)
+
+vote_res = _reflection.GeneratedProtocolMessageType('vote_res', (_message.Message,), dict(
+  DESCRIPTOR = _VOTE_RES,
+  __module__ = 'game_pb2'
+  # @@protoc_insertion_point(class_scope:game.vote_res)
+  ))
+_sym_db.RegisterMessage(vote_res)
 
 speak = _reflection.GeneratedProtocolMessageType('speak', (_message.Message,), dict(
   DESCRIPTOR = _SPEAK,
@@ -472,12 +925,26 @@ speak = _reflection.GeneratedProtocolMessageType('speak', (_message.Message,), d
   ))
 _sym_db.RegisterMessage(speak)
 
+speak_res = _reflection.GeneratedProtocolMessageType('speak_res', (_message.Message,), dict(
+  DESCRIPTOR = _SPEAK_RES,
+  __module__ = 'game_pb2'
+  # @@protoc_insertion_point(class_scope:game.speak_res)
+  ))
+_sym_db.RegisterMessage(speak_res)
+
 skill = _reflection.GeneratedProtocolMessageType('skill', (_message.Message,), dict(
   DESCRIPTOR = _SKILL,
   __module__ = 'game_pb2'
   # @@protoc_insertion_point(class_scope:game.skill)
   ))
 _sym_db.RegisterMessage(skill)
+
+skill_res = _reflection.GeneratedProtocolMessageType('skill_res', (_message.Message,), dict(
+  DESCRIPTOR = _SKILL_RES,
+  __module__ = 'game_pb2'
+  # @@protoc_insertion_point(class_scope:game.skill_res)
+  ))
+_sym_db.RegisterMessage(skill_res)
 
 
 # @@protoc_insertion_point(module_scope)
