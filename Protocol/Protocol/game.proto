@@ -7,10 +7,18 @@ message heart {
     string ext = 2;  //扩展字段
 }
 
+message heart_res {
+    string ext = 1;  //占位字段
+}
+
 //连接服务器
 message connect {
     string userId = 1;  //玩家唯一ID
     string deviceId = 2;  //玩家设备ID
+}
+
+message connect_res {
+    uint32 status = 1;  //状态 0：成功  其他：失败
 }
 
 //退出服务器
@@ -18,9 +26,19 @@ message exit {
     string userId = 1;  //玩家唯一ID
 }
 
+message exit_res {
+    uint32 status = 1;  //状态
+    string userId = 2;  //玩家唯一ID
+}
+
 //加入房间
 message joinRoom {
     string roomId = 1;  //房间ID
+    string userId = 2;  //玩家唯一ID
+}
+
+message joinRoom_res {
+    uint32 status = 1;  //状态
     string userId = 2;  //玩家唯一ID
 }
 
@@ -30,9 +48,19 @@ message exitRoom {
     string userId = 2;  //玩家唯一ID
 }
 
+message exitRoom_res {
+    uint32 status = 1;  //状态
+    string userId = 2;  //玩家唯一ID
+}
+
 //解散房间
 message dismissRoom {
     string roomId = 1;  //房间ID
+}
+
+message dismissRoom_res {
+    uint32 status = 1;  //状态
+    string userId = 2;  //玩家唯一ID
 }
 
 //准备
@@ -40,10 +68,21 @@ message ready {
     string roomId = 1;  //玩家唯一ID
 }
 
+message ready_res {
+    uint32 status = 1;  //状态
+    string userId = 2;  //玩家唯一ID
+}
+
 //投票
 message vote {
     string userId = 1;  //玩家唯一ID
     string otherId = 2;  //被投票的玩家唯一ID
+}
+
+message vote_res {
+    uint32 status = 1;  //状态
+    string userId = 2;  //玩家唯一ID
+    string otherId = 3;  //被投票的玩家唯一ID
 }
 
 //发言
@@ -53,9 +92,21 @@ message speak {
     uint32 type = 3;  //类型 0：语音  1：文本
 }
 
+message speak_res {
+    string userId = 1;  //玩家唯一ID
+    string msg = 2;  //说话内容
+    uint32 type = 3;  //类型
+}
+
 //释放技能
 message skill {
     string userId = 1;  //玩家唯一ID
     uint32 sid = 2;  //技能ID
+    string targetId = 3;  //技能施放对象ID
+}
+
+message skill_res {
+    string userId = 1;  //玩家唯一ID
+    uint32 status = 2;  //状态
     string targetId = 3;  //技能施放对象ID
 }
