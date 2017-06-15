@@ -3,10 +3,13 @@
 #法官
 class Judge():
     room = None
+    loopFlag = True
 
     def __init__(self, room):
         self.room = room
 
     def start(self):
         #分配身份
-        pass
+        self.room.allotRole()
+        while(self.loopFlag):
+            pass

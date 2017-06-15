@@ -12,7 +12,7 @@ class Client(Protocol):
     deviceId = None  #玩家设备唯一ID
     heart_cnt = 0  #心跳计数（当次数大于3次，则认为客户端已断开连接）
     stick_package_stack = None  #数据包缓存
-    user = None  #用户信息
+    role = None  #用户信息
     room_id = 0  # 房间ID
     status = 0  #状态 0：未准备  1：准备
 

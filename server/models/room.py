@@ -1,21 +1,37 @@
 # coding: utf-8
 
+import copy
+import random
 from models.judge import Judge
 from logger.log import log
 from protocol.serialize import send
+from common.roomConfig import roomCfg
+from common.constDefine import *
 
 class Room():
-    room_id = -1  #房间ID
-    master_id = -1  #房主ID
-    room_type = -1  #房间类型
-    max_num = 5  #房间最大玩家数量
-    users = None  #房间的玩家
-    judge = None  #法官
+    room_id = -1                #房间ID
+    master_id = -1              #房主ID
+    room_type = -1              #房间类型
+    users = None                #房间的玩家
+    judge = None                #法官
+    max_num = 0                 #房间最大玩家数量
+    user_role = None            #玩家角色
+    interrupt_flag = False      #是否允许其他玩家在某个玩家发言过程中插话
+    speak_time = 0              #玩家发言时长
 
-    def __init__(self, room_id, master_id):
+    def __init__(self, room_id, room_type, master_id):
         self.room_id = room_id
+        self.room_type = room_type
         self.master_id = master_id
         self.users = {}
+
+        if roomCfg[self.room_type] is not None:
+            self.max_num = roomCfg[self.room_type].max_num
+            self.user_role = roomCfg[self.room_type].user_role
+            self.interrupt_flag = roomCfg[self.room_type].interrupt_flag
+            self.speak_time = roomCfg[self.room_type].speak_time
+        else:
+            log().error("room config is not exists ! {0}".format(self.room_type))
 
     #房间是否满员
     def isFull(self):
@@ -54,6 +70,24 @@ class Room():
         else:
             log().error("delUser error ! uuid {0} is not exists!".format(uuid))
         return ret
+
+    def _allocRoleByIndex_(self, index):
+        if index in USER_ROLE_CLASS_DICT.keys():
+            cls = USER_ROLE_CLASS_DICT[index]
+            return cls()
+        else:
+            log().error("alloc role error ! {0}".format(index))
+            return None
+
+    #分配身份
+    def allotRole(self):
+        tmpRole = copy.deepcopy(self.user_role)
+        for user in self.users.values():
+            if user.role is None:
+                index = random.randint(0, len(tmpRole))
+                user.role = self._allocRoleByIndex_(tmpRole[index])
+                if user.role is not None:
+                    del tmpRole[index]
 
     #解散房间
     def dismiss(self):

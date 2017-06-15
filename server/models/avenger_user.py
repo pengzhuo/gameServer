@@ -1,12 +1,12 @@
 # coding: utf-8
 
-from common.constDefine import *
 from models.base import Base
+from common.constDefine import *
 
-#平民
-class Normal_User(Base):
+#复仇者
+class Avenger_User(Base):
     def __init__(self):
-        Base.__init__(self, USER_IDENTITY_NORMAL)
+        Base.__init__(self, USER_IDENTITY_AVENGER)
 
     def doSkill(self, id):
         print USER_NAME_DICT[self.identity]

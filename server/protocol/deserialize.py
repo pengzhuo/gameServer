@@ -8,9 +8,9 @@ from manager.roomManager import RoomManager
 from logger.log import log
 from protocol.serialize import send
 
-def parse(cmd, raw, session):
+def parse(cmd, type, raw, session):
     try:
-        serial_router[cmd](raw, session)
+        serial_router[cmd](type, raw, session)
     except:
         import traceback
         traceback.print_exc()
@@ -29,16 +29,18 @@ def receive(raw, session):
 
         if raw_size > size:
             cmd, = struct.unpack('>i', raw[4:8])
-            string, = struct.unpack('>{0}s'.format(size-8), raw[8:size])
-            parse(cmd, string, session)
+            type, = struct.unpack('>b', raw[8:9])
+            string, = struct.unpack('>{0}s'.format(size-9), raw[9:size])
+            parse(cmd, type, string, session)
             rest = raw[size:]
             receive(rest, session)
         elif size > raw_size:
             session.stick_package_stack = raw
         elif size == raw_size:
             cmd, = struct.unpack('>i', raw[4:8])
-            string, = struct.unpack('>{0}s'.format(size-8), raw[8:size])
-            parse(cmd, string, session)
+            type, = struct.unpack('>b', raw[8:9])
+            string, = struct.unpack('>{0}s'.format(size - 9), raw[9:size])
+            parse(cmd, type, string, session)
         else:
             pass
     except:
@@ -46,13 +48,13 @@ def receive(raw, session):
         traceback.print_exc()
 
 #玩家心跳
-def dealUserHeart(string, session):
+def dealUserHeart(type, string, session):
     proto = game_pb2.heart()
     proto.ParseFromString(string)
     session.heart_cnt = 0
 
 #玩家发起连接
-def dealUserConn(string, session):
+def dealUserConn(type, string, session):
     proto = game_pb2.connect()
     proto.ParseFromString(string)
     session.userId = proto.userId
@@ -63,13 +65,13 @@ def dealUserConn(string, session):
     send(USER_CONN_RES, proto_res, session)
 
 #玩家断开连接
-def dealUserExit(string, session):
+def dealUserExit(type, string, session):
     proto = game_pb2.exit()
     proto.ParseFromString(string)
     UserManager().delUser(session.uuid)
 
 #玩家加入房间
-def joinRoom(string, session):
+def joinRoom(type, string, session):
     proto = game_pb2.joinRoom()
     proto.ParseFromString(string)
     room = RoomManager().findRoom(proto.roomId)
@@ -91,7 +93,7 @@ def joinRoom(string, session):
         send(USER_JOIN_ROOM_RES, proto_res, session)
 
 #玩家退出房间
-def exitRoom(string, session):
+def exitRoom(type, string, session):
     proto = game_pb2.exitRoom()
     proto.ParseFromString(string)
     room = RoomManager().findRoom(session.room_id)
@@ -105,13 +107,13 @@ def exitRoom(string, session):
 
 
 #解散房间
-def dismissRoom(string, session):
+def dismissRoom(type, string, session):
     proto = game_pb2.dismissRoom()
     proto.ParseFromString(string)
     RoomManager().dismissRoom(proto.roomId)
 
 #玩家进房间后准备
-def ready(string, session):
+def ready(type, string, session):
     proto = game_pb2.ready()
     proto.ParseFromString(string)
     session.status = 1
@@ -120,7 +122,7 @@ def ready(string, session):
         room.ready()
 
 #玩家发言
-def speak(string, session):
+def speak(type, string, session):
     proto = game_pb2.speak()
     proto.ParseFromString(string)
     room = RoomManager().findRoom(session.room_id)
@@ -128,7 +130,7 @@ def speak(string, session):
         room.speak(proto.userId, proto.type, proto.msg)
 
 #玩家投票
-def vote(string, session):
+def vote(type, string, session):
     proto = game_pb2.vote()
     proto.ParseFromString(string)
     room = RoomManager().findRoom(session.room_id)
@@ -136,7 +138,7 @@ def vote(string, session):
         room.vote(proto.userId, proto.otherId)
 
 #玩家释放技能
-def doSkill(string, session):
+def doSkill(type, string, session):
     proto = game_pb2.skill()
     proto.ParseFromString(string)
     room = RoomManager().findRoom(session.room_id)
