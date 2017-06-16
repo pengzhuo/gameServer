@@ -14,6 +14,7 @@ from skills.instead_skill import Instead_skill
 from skills.kill_skill import Kill_skill
 from skills.poison_skill import Poison_skill
 from skills.vote_skill import Vote_skill
+from skills.seer_skill import Seer_skill
 
 from language.string_config import *
 
@@ -69,6 +70,7 @@ USER_SKILL_POISON = 3                   #毒药
 USER_SKILL_ANTIDOTE = 4                 #解药
 USER_SKILL_GUN = 5                      #枪
 USER_SKILL_INSTEAD = 6                  #代替死亡
+USER_SKILL_SEER = 7                     #查验身份
 
 # 玩家技能名称字典
 USER_SKILL_NAME_DICT = {
@@ -78,6 +80,7 @@ USER_SKILL_NAME_DICT = {
     USER_SKILL_ANTIDOTE:STR_USER_SKILL_ANTIDOTE,
     USER_SKILL_GUN:STR_USER_SKILL_GUN,
     USER_SKILL_INSTEAD:STR_USER_SKILL_INSTEAD,
+    USER_SKILL_SEER:STR_USER_SKILL_SEER,
 }
 
 # 玩家技能对应类
@@ -88,6 +91,7 @@ USER_SKILL_CLASS_DICT = {
     USER_SKILL_ANTIDOTE:Antidote_skill,
     USER_SKILL_GUN:Gun_skill,
     USER_SKILL_INSTEAD:Instead_skill,
+    USER_SKILL_SEER:Seer_skill,
 }
 
 # 通信协议格式 (0：protobuf  1：json)
