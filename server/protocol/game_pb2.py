@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='game.proto',
   package='game',
   syntax='proto3',
-  serialized_pb=_b('\n\ngame.proto\x12\x04game\"\"\n\x05heart\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12\x0b\n\x03\x65xt\x18\x02 \x01(\t\"\x18\n\theart_res\x12\x0b\n\x03\x65xt\x18\x01 \x01(\t\"+\n\x07\x63onnect\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x10\n\x08\x64\x65viceId\x18\x02 \x01(\t\"\x1d\n\x0b\x63onnect_res\x12\x0e\n\x06status\x18\x01 \x01(\r\"\x16\n\x04\x65xit\x12\x0e\n\x06userId\x18\x01 \x01(\t\"*\n\x08\x65xit_res\x12\x0e\n\x06status\x18\x01 \x01(\r\x12\x0e\n\x06userId\x18\x02 \x01(\t\"*\n\x08joinRoom\x12\x0e\n\x06roomId\x18\x01 \x01(\t\x12\x0e\n\x06userId\x18\x02 \x01(\t\".\n\x0cjoinRoom_res\x12\x0e\n\x06status\x18\x01 \x01(\r\x12\x0e\n\x06userId\x18\x02 \x01(\t\"*\n\x08\x65xitRoom\x12\x0e\n\x06roomId\x18\x01 \x01(\t\x12\x0e\n\x06userId\x18\x02 \x01(\t\".\n\x0c\x65xitRoom_res\x12\x0e\n\x06status\x18\x01 \x01(\r\x12\x0e\n\x06userId\x18\x02 \x01(\t\"\x1d\n\x0b\x64ismissRoom\x12\x0e\n\x06roomId\x18\x01 \x01(\t\"1\n\x0f\x64ismissRoom_res\x12\x0e\n\x06status\x18\x01 \x01(\r\x12\x0e\n\x06userId\x18\x02 \x01(\t\"\x17\n\x05ready\x12\x0e\n\x06roomId\x18\x01 \x01(\t\"+\n\tready_res\x12\x0e\n\x06status\x18\x01 \x01(\r\x12\x0e\n\x06userId\x18\x02 \x01(\t\"\'\n\x04vote\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0f\n\x07otherId\x18\x02 \x01(\t\";\n\x08vote_res\x12\x0e\n\x06status\x18\x01 \x01(\r\x12\x0e\n\x06userId\x18\x02 \x01(\t\x12\x0f\n\x07otherId\x18\x03 \x01(\t\"2\n\x05speak\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0b\n\x03msg\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\r\"6\n\tspeak_res\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0b\n\x03msg\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\r\"6\n\x05skill\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0b\n\x03sid\x18\x02 \x01(\r\x12\x10\n\x08targetId\x18\x03 \x01(\t\"=\n\tskill_res\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0e\n\x06status\x18\x02 \x01(\r\x12\x10\n\x08targetId\x18\x03 \x01(\tb\x06proto3')
+  serialized_pb=_b('\n\ngame.proto\x12\x04game\"\"\n\x05heart\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12\x0b\n\x03\x65xt\x18\x02 \x01(\t\"\x18\n\theart_res\x12\x0b\n\x03\x65xt\x18\x01 \x01(\t\"+\n\x07\x63onnect\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x10\n\x08\x64\x65viceId\x18\x02 \x01(\t\"\x1d\n\x0b\x63onnect_res\x12\x0e\n\x06status\x18\x01 \x01(\r\"\x16\n\x04\x65xit\x12\x0e\n\x06userId\x18\x01 \x01(\t\"*\n\x08\x65xit_res\x12\x0e\n\x06status\x18\x01 \x01(\r\x12\x0e\n\x06userId\x18\x02 \x01(\t\"*\n\x08joinRoom\x12\x0e\n\x06roomId\x18\x01 \x01(\t\x12\x0e\n\x06userId\x18\x02 \x01(\t\".\n\x0cjoinRoom_res\x12\x0e\n\x06status\x18\x01 \x01(\r\x12\x0e\n\x06userId\x18\x02 \x01(\t\"*\n\x08\x65xitRoom\x12\x0e\n\x06roomId\x18\x01 \x01(\t\x12\x0e\n\x06userId\x18\x02 \x01(\t\".\n\x0c\x65xitRoom_res\x12\x0e\n\x06status\x18\x01 \x01(\r\x12\x0e\n\x06userId\x18\x02 \x01(\t\"\x1d\n\x0b\x64ismissRoom\x12\x0e\n\x06roomId\x18\x01 \x01(\t\"1\n\x0f\x64ismissRoom_res\x12\x0e\n\x06status\x18\x01 \x01(\r\x12\x0e\n\x06userId\x18\x02 \x01(\t\"\x17\n\x05ready\x12\x0e\n\x06roomId\x18\x01 \x01(\t\"+\n\tready_res\x12\x0e\n\x06status\x18\x01 \x01(\r\x12\x0e\n\x06userId\x18\x02 \x01(\t\"\'\n\x04vote\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0f\n\x07otherId\x18\x02 \x01(\t\";\n\x08vote_res\x12\x0e\n\x06status\x18\x01 \x01(\r\x12\x0e\n\x06userId\x18\x02 \x01(\t\x12\x0f\n\x07otherId\x18\x03 \x01(\t\"2\n\x05speak\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0b\n\x03msg\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\r\"6\n\tspeak_res\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0b\n\x03msg\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\r\"6\n\x05skill\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0b\n\x03sid\x18\x02 \x01(\r\x12\x10\n\x08targetId\x18\x03 \x01(\t\"=\n\tskill_res\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0e\n\x06status\x18\x02 \x01(\r\x12\x10\n\x08targetId\x18\x03 \x01(\t\"\x0b\n\tstartGame\"\x10\n\x0enoticeUseSkillb\x06proto3')
 )
 
 
@@ -784,6 +784,54 @@ _SKILL_RES = _descriptor.Descriptor(
   serialized_end=889,
 )
 
+
+_STARTGAME = _descriptor.Descriptor(
+  name='startGame',
+  full_name='game.startGame',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=891,
+  serialized_end=902,
+)
+
+
+_NOTICEUSESKILL = _descriptor.Descriptor(
+  name='noticeUseSkill',
+  full_name='game.noticeUseSkill',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=904,
+  serialized_end=920,
+)
+
 DESCRIPTOR.message_types_by_name['heart'] = _HEART
 DESCRIPTOR.message_types_by_name['heart_res'] = _HEART_RES
 DESCRIPTOR.message_types_by_name['connect'] = _CONNECT
@@ -804,6 +852,8 @@ DESCRIPTOR.message_types_by_name['speak'] = _SPEAK
 DESCRIPTOR.message_types_by_name['speak_res'] = _SPEAK_RES
 DESCRIPTOR.message_types_by_name['skill'] = _SKILL
 DESCRIPTOR.message_types_by_name['skill_res'] = _SKILL_RES
+DESCRIPTOR.message_types_by_name['startGame'] = _STARTGAME
+DESCRIPTOR.message_types_by_name['noticeUseSkill'] = _NOTICEUSESKILL
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 heart = _reflection.GeneratedProtocolMessageType('heart', (_message.Message,), dict(
@@ -945,6 +995,20 @@ skill_res = _reflection.GeneratedProtocolMessageType('skill_res', (_message.Mess
   # @@protoc_insertion_point(class_scope:game.skill_res)
   ))
 _sym_db.RegisterMessage(skill_res)
+
+startGame = _reflection.GeneratedProtocolMessageType('startGame', (_message.Message,), dict(
+  DESCRIPTOR = _STARTGAME,
+  __module__ = 'game_pb2'
+  # @@protoc_insertion_point(class_scope:game.startGame)
+  ))
+_sym_db.RegisterMessage(startGame)
+
+noticeUseSkill = _reflection.GeneratedProtocolMessageType('noticeUseSkill', (_message.Message,), dict(
+  DESCRIPTOR = _NOTICEUSESKILL,
+  __module__ = 'game_pb2'
+  # @@protoc_insertion_point(class_scope:game.noticeUseSkill)
+  ))
+_sym_db.RegisterMessage(noticeUseSkill)
 
 
 # @@protoc_insertion_point(module_scope)

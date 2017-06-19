@@ -51,6 +51,13 @@ class Room():
             else:
                 send(cmd, proto, user)
 
+    #发送消息给指定身份的玩家
+    def sendMsgToIdentityUsers(self, identity, cmd, proto):
+        for user in self.users.values():
+            if user.role is not None and user.role.identity == identity:
+                send(cmd, proto, user)
+                break
+
     #添加玩家
     def addUser(self, user):
         ret = False

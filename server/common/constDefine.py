@@ -119,3 +119,6 @@ USER_READY_RES = 0x1007                 #玩家准备响应
 USER_SPEAK_RES = 0x1008                 #玩家发言响应
 USER_VOTE_RES = 0x1009                  #玩家投票响应
 USER_SKILL_RES = 0x1010                 #玩家释放技能响应
+
+SERVER_SEND_GAME_START = 0x2001         #游戏开始
+SERVER_SEND_GAME_USE_SKILL = 0x2002     #通知使用技能
