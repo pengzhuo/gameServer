@@ -19,22 +19,32 @@ from skills.seer_skill import Seer_skill
 from language.string_config import *
 
 # 时间间隔定义(单位：秒)
-GAME_INTERVAL_WEREWOLF = 10
-GAME_INTERVAL_SEER = 10
-GAME_INTERVAL_WITCH = 10
+GAME_INTERVAL_WEREWOLF      = 10
+GAME_INTERVAL_SEER          = 10
+GAME_INTERVAL_WITCH         = 10
+
+# 房间状态
+ROOM_STATUS_READY           = 0
+ROOM_STATUS_WEREWOLF        = 1
+ROOM_STATUS_SEER            = 2
+ROOM_STATUS_WITCH           = 3
+ROOM_STATUS_VOTE            = 4
 
 # 游戏自定义事件
-GAME_EVENT_WEREWOLF_KILL = "game_event_werewolf_kill"
+GAME_EVENT_NORMAL_VOTE      = "game_event_normal_vote_{0}"
+GAME_EVENT_WEREWOLF_KILL    = "game_event_werewolf_kill_{0}"
+GAME_EVENT_SEER_CHECK       = "game_event_seer_check_{0}"
+GAME_EVENT_WITCH_DRUG       = "game_event_witch_drug_{0}"
 
 # 玩家角色
-USER_IDENTITY_MASTER = -1               #超人类
-USER_IDENTITY_NORMAL = 0                #平民
-USER_IDENTITY_SEER = 1                  #预言家
-USER_IDENTITY_WITCH = 2                 #女巫
-USER_IDENTITY_WEREWOLF = 3              #狼人
-USER_IDENTITY_HUNTER = 4                #猎人
-USER_IDENTITY_AVENGER = 5               #复仇者
-USER_IDENTITY_GUARDIAN = 6              #守护者
+USER_IDENTITY_MASTER        = -1                #超人类
+USER_IDENTITY_NORMAL        = 0                 #平民
+USER_IDENTITY_SEER          = 1                 #预言家
+USER_IDENTITY_WITCH         = 2                 #女巫
+USER_IDENTITY_WEREWOLF      = 3                 #狼人
+USER_IDENTITY_HUNTER        = 4                 #猎人
+USER_IDENTITY_AVENGER       = 5                 #复仇者
+USER_IDENTITY_GUARDIAN      = 6                 #守护者
 
 # 玩家角色名称字典
 USER_NAME_DICT = {
@@ -60,25 +70,25 @@ USER_ROLE_CLASS_DICT = {
 }
 
 # 死亡原因(0: 生存  1: 被狼人杀死  2: 被女巫毒死  3: 被猎人杀死  4: 被复仇者杀死  5: 被投票杀死)
-USER_DIE_REASON_NORMAL = 0
-USER_DIE_REASON_WEREWOLF = 1
-USER_DIE_REASON_WITCH = 2
-USER_DIE_REASON_HUNTER = 3
-USER_DIE_REASON_AVENGER = 4
-USER_DIE_REASON_VOTE = 5
+USER_DIE_REASON_NORMAL      = 0
+USER_DIE_REASON_WEREWOLF    = 1
+USER_DIE_REASON_WITCH       = 2
+USER_DIE_REASON_HUNTER      = 3
+USER_DIE_REASON_AVENGER     = 4
+USER_DIE_REASON_VOTE        = 5
 
 # BUFF状态(0: 无状态  1: 守护者守护)
-USER_ROLE_BUFF_NORMAL = 0
-USER_ROLE_BUFF_GUARD = 1
+USER_ROLE_BUFF_NORMAL       = 0
+USER_ROLE_BUFF_GUARD        = 1
 
 # 玩家技能
-USER_SKILL_VOTE = 1                     #投票
-USER_SKILL_KILL = 2                     #狼人杀
-USER_SKILL_POISON = 3                   #毒药
-USER_SKILL_ANTIDOTE = 4                 #解药
-USER_SKILL_GUN = 5                      #枪
-USER_SKILL_INSTEAD = 6                  #代替死亡
-USER_SKILL_SEER = 7                     #查验身份
+USER_SKILL_VOTE             = 1                 #投票
+USER_SKILL_KILL             = 2                 #狼人杀
+USER_SKILL_POISON           = 3                 #毒药
+USER_SKILL_ANTIDOTE         = 4                 #解药
+USER_SKILL_GUN              = 5                 #枪
+USER_SKILL_INSTEAD          = 6                 #代替死亡
+USER_SKILL_SEER             = 7                 #查验身份
 
 # 玩家技能名称字典
 USER_SKILL_NAME_DICT = {
@@ -106,27 +116,27 @@ USER_SKILL_CLASS_DICT = {
 COMMUNICATION_TYPE = 1
 
 # 服务器socket通信命令码
-USER_HEART = 0x0001                     #心跳
-USER_CONN = 0x0002                      #用户连接服务器
-USER_EXIT = 0x0003                      #用户主动断开连接
-USER_JOIN_ROOM = 0x0004                 #玩家加入房间
-USER_EXIT_ROOM = 0x0005                 #玩家退出房间
-USER_DISMISS_ROOM = 0x0006              #解散房间
-USER_READY = 0x0007                     #玩家准备
-USER_SPEAK = 0x0008                     #玩家发言
-USER_VOTE = 0x0009                      #玩家投票
-USER_SKILL = 0x0010                     #玩家释放技能
+USER_HEART                  = 0x0001            #心跳
+USER_CONN                   = 0x0002            #用户连接服务器
+USER_EXIT                   = 0x0003            #用户主动断开连接
+USER_JOIN_ROOM              = 0x0004            #玩家加入房间
+USER_EXIT_ROOM              = 0x0005            #玩家退出房间
+USER_DISMISS_ROOM           = 0x0006            #解散房间
+USER_READY                  = 0x0007            #玩家准备
+USER_SPEAK                  = 0x0008            #玩家发言
+USER_VOTE                   = 0x0009            #玩家投票
+USER_SKILL                  = 0x0010            #玩家释放技能
 
-USER_HEART_RES = 0x1001                 #心跳响应
-USER_CONN_RES = 0x1002                  #用户连接服务器响应
-USER_EXIT_RES = 0x1003                  #用户主动断开连接响应
-USER_JOIN_ROOM_RES = 0x1004             #玩家加入房间响应
-USER_EXIT_ROOM_RES = 0x1005             #玩家退出房间响应
-USER_DISMISS_ROOM_RES = 0x1006          #解散房间响应
-USER_READY_RES = 0x1007                 #玩家准备响应
-USER_SPEAK_RES = 0x1008                 #玩家发言响应
-USER_VOTE_RES = 0x1009                  #玩家投票响应
-USER_SKILL_RES = 0x1010                 #玩家释放技能响应
+USER_HEART_RES              = 0x1001            #心跳响应
+USER_CONN_RES               = 0x1002            #用户连接服务器响应
+USER_EXIT_RES               = 0x1003            #用户主动断开连接响应
+USER_JOIN_ROOM_RES          = 0x1004            #玩家加入房间响应
+USER_EXIT_ROOM_RES          = 0x1005            #玩家退出房间响应
+USER_DISMISS_ROOM_RES       = 0x1006            #解散房间响应
+USER_READY_RES              = 0x1007            #玩家准备响应
+USER_SPEAK_RES              = 0x1008            #玩家发言响应
+USER_VOTE_RES               = 0x1009            #玩家投票响应
+USER_SKILL_RES              = 0x1010            #玩家释放技能响应
 
-SERVER_SEND_GAME_START = 0x2001         #游戏开始
-SERVER_SEND_GAME_USE_SKILL = 0x2002     #通知使用技能
+SERVER_SEND_GAME_START      = 0x2001            #游戏开始
+SERVER_SEND_GAME_USE_SKILL  = 0x2002            #通知使用技能

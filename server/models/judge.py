@@ -10,53 +10,34 @@ class Judge():
     room = None             #房间实例
     timer = None            #定时器
     event = None            #事件对象
-    beKillIds = None        #被杀玩家ID
+    kill_info = None        #被杀玩家ID
 
     def __init__(self, room):
         self.room = room
-        self.beKillIds = []
+        self.kill_info = []
 
-    def noticeWerewolf(self):
-        # 狼人选择目标杀害
-        self.room.sendMsgToIdentityUsers(SERVER_SEND_GAME_USE_SKILL, USER_IDENTITY_WEREWOLF, game_pb2.noticeUseSkill())
-        self.event = EventUtils().register(GAME_EVENT_WEREWOLF_KILL, self.noticeWerewolf_res)
-        self.timer = TimerUtils().addTimer(GAME_INTERVAL_WEREWOLF, self.noticeWerewolf_timeot, 0)
+    def registerEvent(self):
+        self.event[len(self.event)] = EventUtils().register(GAME_EVENT_WEREWOLF_KILL.format(self.room.room_id), self.event_cb_werewolf)
+        self.event[len(self.event)] = EventUtils().register(GAME_EVENT_SEER_CHECK.format(self.room.room_id), self.event_cb_seer)
+        self.event[len(self.event)] = EventUtils().register(GAME_EVENT_WITCH_DRUG.format(self.room.room_id), self.event_cb_witch)
+        self.event[len(self.event)] = EventUtils().register(GAME_EVENT_NORMAL_VOTE.format(self.room.room_id), self.event_cb_normal)
 
-    def noticeWerewolf_res(self, targetId):
-        # 狼人选择的目标
-        self.beKillIds.append(targetId)
-        num = self.room.getNumberByIdentity(USER_IDENTITY_WEREWOLF)
-        if num is not None and num == len(self.beKillIds):
-            if self.timer is not None:
-                TimerUtils().removeTimer(self.timer)
-                self.timer = None
-            if self.event is not None:
-                EventUtils().unregister(self.event)
-                self.event = None
+    def event_cb_normal(self, info):
+        if self.room.status != ROOM_STATUS_VOTE:
+            return
 
-    def noticeWerewolf_timeot(self):
-        if self.timer is not None:
-            TimerUtils().removeTimer(self.timer)
-            self.timer = None
-        if self.event is not None:
-            EventUtils().unregister(self.event)
-            self.event = None
+    def event_cb_werewolf(self, info):
+        if self.room.status != ROOM_STATUS_WEREWOLF:
+            return
+        self.kill_info.append(info)
 
-    def noticeSeer(self):
-        # 通知预言家查验身份
-        pass
+    def event_cb_seer(self, info):
+        if self.room.status != ROOM_STATUS_SEER:
+            return
 
-    def noticeWitch(self):
-        # 通知女巫
-        pass
-
-    def talkTime(self):
-        # 全员商议时间
-        pass
-
-    def voteTime(self):
-        # 投票时间
-        pass
+    def event_cb_witch(self, info):
+        if self.room.status != ROOM_STATUS_WITCH:
+            return
 
     def start(self):
         #通知全部玩家游戏开始
@@ -64,4 +45,4 @@ class Judge():
         #分配身份
         self.room.allotRole()
         #begin
-        self.noticeWerewolf()
+        self.registerEvent()

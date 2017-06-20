@@ -19,12 +19,14 @@ class Room():
     user_role_num = None        #玩家角色数量
     interrupt_flag = False      #是否允许其他玩家在某个玩家发言过程中插话
     speak_time = 0              #玩家发言时长
+    status = None               #房间状态
 
     def __init__(self, room_id, room_type, master_id):
         self.room_id = room_id
         self.room_type = room_type
         self.master_id = master_id
         self.users = {}
+        self.status = ROOM_STATUS_READY
 
         if roomCfg[self.room_type] is not None:
             self.max_num = roomCfg[self.room_type].max_num
