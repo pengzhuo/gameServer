@@ -18,6 +18,14 @@ from skills.seer_skill import Seer_skill
 
 from language.string_config import *
 
+# 时间间隔定义(单位：秒)
+GAME_INTERVAL_WEREWOLF = 10
+GAME_INTERVAL_SEER = 10
+GAME_INTERVAL_WITCH = 10
+
+# 游戏自定义事件
+GAME_EVENT_WEREWOLF_KILL = "game_event_werewolf_kill"
+
 # 玩家角色
 USER_IDENTITY_MASTER = -1               #超人类
 USER_IDENTITY_NORMAL = 0                #平民

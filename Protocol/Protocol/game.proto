@@ -110,3 +110,14 @@ message skill_res {
     uint32 status = 2;  //状态
     string targetId = 3;  //技能施放对象ID
 }
+
+//开始游戏
+message startGame {
+    
+}
+
+//通知使用技能
+message noticeUseSkill{
+    
+}
+

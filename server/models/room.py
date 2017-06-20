@@ -16,6 +16,7 @@ class Room():
     judge = None                #法官
     max_num = 0                 #房间最大玩家数量
     user_role = None            #玩家角色
+    user_role_num = None        #玩家角色数量
     interrupt_flag = False      #是否允许其他玩家在某个玩家发言过程中插话
     speak_time = 0              #玩家发言时长
 
@@ -30,8 +31,18 @@ class Room():
             self.user_role = roomCfg[self.room_type].user_role
             self.interrupt_flag = roomCfg[self.room_type].interrupt_flag
             self.speak_time = roomCfg[self.room_type].speak_time
+
+            from collections import Counter
+            self.user_role_num = Counter(self.user_role)
         else:
             log().error("room config is not exists ! {0}".format(self.room_type))
+
+    #获取指定类型玩家的数量
+    def getNumberByIdentity(self, identity):
+        if identity in self.user_role_num.keys():
+            return self.user_role_num[identity]
+        else:
+            return None
 
     #房间是否满员
     def isFull(self):
