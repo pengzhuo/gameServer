@@ -27,3 +27,7 @@ class Client(Protocol):
 
     def dataReceived(self, data):
         receive(data, self)
+
+    #转化为JSON字符串
+    def toJson(self):
+        pass

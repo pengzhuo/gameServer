@@ -39,6 +39,10 @@ class Room():
         else:
             log().error("room config is not exists ! {0}".format(self.room_type))
 
+    #转化为JSON字符串
+    def toJson(self):
+        pass
+
     #获取指定类型玩家的数量
     def getNumberByIdentity(self, identity):
         if identity in self.user_role_num.keys():

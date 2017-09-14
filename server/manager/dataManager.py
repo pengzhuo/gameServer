@@ -13,13 +13,13 @@ class DataManager():
         self.redis_instance = redis.StrictRedis(REDIS_HOST, REDIS_PORT, REDIS_DB, REDIS_PASSWORD)
 
     def saveRoomInfo(self, room):
-        pass
+        self.redis_instance.set("room:{0}".format(room.room_id), room.toJson())
 
     def getRoomInfo(self, room_id):
-        pass
+        return self.redis_instance.get("room:{0}".format(room_id))
 
     def saveUserInfo(self, user):
-        pass
+        self.redis_instance.set("user:{0}".format(user.userId), user.toJson())
 
     def getUserInfo(self, uuid):
-        pass
+        return self.redis_instance.get("user:{0}".format(uuid))

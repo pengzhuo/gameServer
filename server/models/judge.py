@@ -25,6 +25,10 @@ class Judge():
     def event_cb_normal(self, info):
         if self.room.status != ROOM_STATUS_VOTE:
             return
+        if info and info.flag:
+            pass
+        else:
+            pass
 
     def event_cb_werewolf(self, info):
         if self.room.status != ROOM_STATUS_WEREWOLF:
