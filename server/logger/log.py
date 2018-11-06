@@ -3,10 +3,14 @@
 import logging
 from models.singleton import Singleton
 
-class log():
+
+class Log:
     __metaclass__ = Singleton
 
+    m_logger = None
+
     def __init__(self):
+        self.m_logger = logging
         logging.basicConfig(level=logging.DEBUG,
                             format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
                             datefmt='%a, %d %b %Y %H:%M:%S',
@@ -14,13 +18,16 @@ class log():
                             filemode='w')
 
     def debug(self, msg):
-        logging.debug(msg)
+        self.m_logger.debug(msg)
 
     def info(self, msg):
-        logging.info(msg)
+        self.m_logger.info(msg)
 
     def warn(self, msg):
-        logging.warning(msg)
+        self.m_logger.warning(msg)
 
     def error(self, msg):
-        logging.error(msg)
+        self.m_logger.error(msg)
+
+
+logger = Log()

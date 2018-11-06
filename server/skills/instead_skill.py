@@ -3,7 +3,8 @@
 from skills.base import Base
 from common.constDefine import *
 
-class Instead_skill(Base):
+
+class InsteadSkill(Base):
     def __init__(self):
         Base.__init__(self, USER_SKILL_INSTEAD)
         self.hit = 1

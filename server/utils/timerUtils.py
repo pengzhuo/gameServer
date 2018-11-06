@@ -2,21 +2,20 @@
 
 from twisted.internet import task
 from models.singleton import Singleton
+from logger.log import logger
 
-#定时器
-class TimerUtils():
+
+class TimerUtils:
+    """定时器"""
     __metaclass__ = Singleton
 
-    #回调函数
     funcs = None
-
-    #定时器对象
     _timer = None
 
     def _callback_(self):
         try:
-            needDelIndexs = []
-            for k,v in self.funcs.items():
+            need_del_indexs = []
+            for k, v in self.funcs.items():
                 if v["num"] < v["interval"]:
                     v["num"] += 1
                 else:
@@ -27,12 +26,11 @@ class TimerUtils():
                     if v["isLoop"]:
                         v["num"] = 0
                     else:
-                        needDelIndexs.append(k)
-            for i in needDelIndexs:
+                        need_del_indexs.append(k)
+            for i in need_del_indexs:
                 del self.funcs[i]
-        except:
-            import traceback
-            traceback.print_exc()
+        except Exception as e:
+            logger.error(e)
 
     def __init__(self):
         self.funcs = {}
@@ -47,17 +45,17 @@ class TimerUtils():
             self._timer.stop()
             self._timer = None
 
-    def addTimer(self, interval, func, param=None, flag=False):
+    def add_timer(self, interval, func, param=None, flag=False):
         index = len(self.funcs)
         self.funcs[index] = {
-            "interval":interval,
-            "func":func,
-            "param":param,
-            "num":0,
-            "isLoop":flag
+            "interval": interval,
+            "func": func,
+            "param": param,
+            "num": 0,
+            "isLoop": flag,
         }
         return index
 
-    def removeTimer(self, index):
+    def remove_timer(self, index):
         if index in self.funcs.keys():
             del self.funcs[index]

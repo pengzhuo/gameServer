@@ -5,18 +5,19 @@ from protocol import game_pb2
 from utils.eventUtils import EventUtils
 from utils.timerUtils import TimerUtils
 
-#法官
-class Judge():
-    room = None             #房间实例
-    timer = None            #定时器
-    event = None            #事件对象
-    kill_info = None        #被杀玩家ID
+
+class Judge:
+    """法官"""
+    room = None             # 房间实例
+    timer = None            # 定时器
+    event = None            # 事件对象
+    kill_info = None        # 被杀玩家ID
 
     def __init__(self, room):
         self.room = room
         self.kill_info = []
 
-    def registerEvent(self):
+    def register_vent(self):
         self.event[len(self.event)] = EventUtils().register(GAME_EVENT_WEREWOLF_KILL.format(self.room.room_id), self.event_cb_werewolf)
         self.event[len(self.event)] = EventUtils().register(GAME_EVENT_SEER_CHECK.format(self.room.room_id), self.event_cb_seer)
         self.event[len(self.event)] = EventUtils().register(GAME_EVENT_WITCH_DRUG.format(self.room.room_id), self.event_cb_witch)
@@ -44,9 +45,9 @@ class Judge():
             return
 
     def start(self):
-        #通知全部玩家游戏开始
+        # 通知全部玩家游戏开始
         self.room.sendMsgToAllUsers(SERVER_SEND_GAME_START, game_pb2.startGame())
-        #分配身份
+        # 分配身份
         self.room.allotRole()
-        #begin
+        # begin
         self.registerEvent()

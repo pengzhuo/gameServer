@@ -5,15 +5,16 @@ from common.constDefine import *
 from protocol import game_pb2
 from manager.userManager import UserManager
 from manager.roomManager import RoomManager
-from logger.log import log
+from logger.log import logger
 from protocol.serialize import send
+
 
 def parse(cmd, type, raw, session):
     try:
         serial_router[cmd](type, raw, session)
-    except:
-        import traceback
-        traceback.print_exc()
+    except Exception as e:
+        logger.error(e)
+
 
 def receive(raw, session):
     try:
@@ -43,18 +44,19 @@ def receive(raw, session):
             parse(cmd, type, string, session)
         else:
             pass
-    except:
-        import traceback
-        traceback.print_exc()
+    except Exception as e:
+        logger.error(e)
 
-#玩家心跳
-def dealUserHeart(type, string, session):
+
+def deal_user_heart(type, string, session):
+    """玩家心跳"""
     proto = game_pb2.heart()
     proto.ParseFromString(string)
     session.heart_cnt = 0
 
-#玩家发起连接
-def dealUserConn(type, string, session):
+
+def deal_user_conn(type, string, session):
+    """玩家发起连接"""
     proto = game_pb2.connect()
     proto.ParseFromString(string)
     session.userId = proto.userId
@@ -64,14 +66,16 @@ def dealUserConn(type, string, session):
     proto_res.status = 0
     send(USER_CONN_RES, proto_res, session)
 
-#玩家断开连接
-def dealUserExit(type, string, session):
+
+def deal_user_exit(type, string, session):
+    """玩家断开连接"""
     proto = game_pb2.exit()
     proto.ParseFromString(string)
     UserManager().delUser(session.uuid)
 
-#玩家加入房间
-def joinRoom(type, string, session):
+
+def join_room(type, string, session):
+    """玩家加入房间"""
     proto = game_pb2.joinRoom()
     proto.ParseFromString(string)
     room = RoomManager().findRoom(proto.roomId)
@@ -85,15 +89,16 @@ def joinRoom(type, string, session):
             room.addUser(session)
         else:
             proto_res.status = 1
-            log().error("room {0} is full!".format(proto.roomId))
+            logger.error("room {0} is full!".format(proto.roomId))
         room.sendMsgToAllUsers(USER_JOIN_ROOM_RES, proto_res, session)
     else:
         proto_res.status = 2
-        log().error("room {0} is not exists!".format(proto.roomId))
+        logger.error("room {0} is not exists!".format(proto.roomId))
         send(USER_JOIN_ROOM_RES, proto_res, session)
 
-#玩家退出房间
-def exitRoom(type, string, session):
+
+def exit_room(type, string, session):
+    """玩家退出房间"""
     proto = game_pb2.exitRoom()
     proto.ParseFromString(string)
     room = RoomManager().findRoom(session.room_id)
@@ -106,14 +111,15 @@ def exitRoom(type, string, session):
     proto_res.userId = session.userId
 
 
-#解散房间
-def dismissRoom(type, string, session):
+def dismiss_room(type, string, session):
+    """解散房间"""
     proto = game_pb2.dismissRoom()
     proto.ParseFromString(string)
     RoomManager().dismissRoom(proto.roomId)
 
-#玩家进房间后准备
+
 def ready(type, string, session):
+    """玩家进房间后准备"""
     proto = game_pb2.ready()
     proto.ParseFromString(string)
     session.status = 1
@@ -121,39 +127,43 @@ def ready(type, string, session):
     if room is not None:
         room.ready()
 
-#玩家发言
+
 def speak(type, string, session):
+    """玩家发言"""
     proto = game_pb2.speak()
     proto.ParseFromString(string)
     room = RoomManager().findRoom(session.room_id)
     if room is not None:
         room.speak(proto.userId, proto.type, proto.msg)
 
-#玩家投票
+
 def vote(type, string, session):
+    """玩家投票"""
     proto = game_pb2.vote()
     proto.ParseFromString(string)
     room = RoomManager().findRoom(session.room_id)
     if room is not None:
         room.vote(proto.userId, proto.otherId)
 
-#玩家释放技能
-def doSkill(type, string, session):
+
+def do_skill(type, string, session):
+    """玩家释放技能"""
     proto = game_pb2.skill()
     proto.ParseFromString(string)
     room = RoomManager().findRoom(session.room_id)
     if room is not None:
         room.doSkill(proto.userId, proto.sid, proto.targetId)
 
+
 serial_router = {
-    USER_HEART: dealUserHeart,
-    USER_CONN: dealUserConn,
-    USER_EXIT: dealUserExit,
-    USER_JOIN_ROOM: joinRoom,
-    USER_EXIT_ROOM: exitRoom,
-    USER_DISMISS_ROOM: dismissRoom,
+    USER_HEART: deal_user_heart,
+    USER_CONN: deal_user_conn,
+    USER_EXIT: deal_user_exit,
+    USER_JOIN_ROOM: join_room,
+    USER_EXIT_ROOM: exit_room,
+    USER_DISMISS_ROOM: dismiss_room,
     USER_READY: ready,
     USER_SPEAK: speak,
     USER_VOTE: vote,
-    USER_SKILL: doSkill,
+    USER_SKILL: do_skill,
 }

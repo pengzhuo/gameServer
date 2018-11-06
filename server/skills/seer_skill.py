@@ -3,7 +3,8 @@
 from skills.base import Base
 from common.constDefine import *
 
-class Seer_skill(Base):
+
+class SeerSkill(Base):
     def __init__(self):
         Base.__init__(self, USER_SKILL_VOTE)
         self.hit = 1

@@ -3,7 +3,8 @@
 from skills.base import Base
 from common.constDefine import *
 
-class Kill_skill(Base):
+
+class KillSkill(Base):
     def __init__(self):
         Base.__init__(self, USER_SKILL_KILL)
         self.hit = 1

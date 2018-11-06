@@ -2,36 +2,34 @@
 
 from models.singleton import Singleton
 
-#事件管理
-class EventUtils():
+
+class EventUtils:
+    """事件管理"""
     __metaclass__ = Singleton
 
-    #监听
     listeners = None
-
-    #索引
     indexs = None
 
     def __init__(self):
         self.listeners = {}
         self.indexs = {}
 
-    #注册监听
-    def register(self, eventName, listener):
-        if eventName not in self.listeners.keys():
-            self.listeners[eventName] = []
-        self.listeners[eventName].append(listener)
+    def register(self, event_name, listener):
+        """注册监听"""
+        if event_name not in self.listeners.keys():
+            self.listeners[event_name] = []
+        self.listeners[event_name].append(listener)
         index = len(self.indexs)
-        self.indexs[index] = [eventName, len(self.listeners[eventName])-1]
+        self.indexs[index] = [event_name, len(self.listeners[event_name])-1]
         return index
 
-    #移除监听
     def unregister(self, index):
+        """移除监听"""
         if index in self.indexs.keys() and index in self.indexs.keys():
             del self.listeners[self.indexs[index][0]][self.indexs[index][1]]
 
-    #发送事件
-    def dispatchEvent(self, eventName, event):
-        if eventName in self.listeners.keys():
-            for l in self.listeners[eventName]:
+    def dispatch_event(self, event_name, event):
+        """发送事件"""
+        if event_name in self.listeners.keys():
+            for l in self.listeners[event_name]:
                 l(event)

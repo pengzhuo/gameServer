@@ -3,7 +3,8 @@
 from skills.base import Base
 from common.constDefine import *
 
-class Poison_skill(Base):
+
+class PoisonSkill(Base):
     def __init__(self):
         Base.__init__(self, USER_SKILL_POISON)
         self.hit = 1

@@ -1,5 +1,6 @@
 # coding: utf-8
 
+
 class Singleton(type):
     def __init__(cls, name, bases, class_dict):
         super(Singleton, cls).__init__(name, bases, class_dict)

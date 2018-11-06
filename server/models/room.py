@@ -3,23 +3,24 @@
 import copy
 import random
 from models.judge import Judge
-from logger.log import log
+from logger.log import logger
 from protocol.serialize import send
 from common.roomConfig import roomCfg
 from common.constDefine import *
 
-class Room():
-    room_id = -1                #房间ID
-    master_id = -1              #房主ID
-    room_type = -1              #房间类型
-    users = None                #房间的玩家
-    judge = None                #法官
-    max_num = 0                 #房间最大玩家数量
-    user_role = None            #玩家角色
-    user_role_num = None        #玩家角色数量
-    interrupt_flag = False      #是否允许其他玩家在某个玩家发言过程中插话
-    speak_time = 0              #玩家发言时长
-    status = None               #房间状态
+
+class Room:
+    room_id = -1                # 房间ID
+    master_id = -1              # 房主ID
+    room_type = -1              # 房间类型
+    users = None                # 房间的玩家
+    judge = None                # 法官
+    max_num = 0                 # 房间最大玩家数量
+    user_role = None            # 玩家角色
+    user_role_num = None        # 玩家角色数量
+    interrupt_flag = False      # 是否允许其他玩家在某个玩家发言过程中插话
+    speak_time = 0              # 玩家发言时长
+    status = None               # 房间状态
 
     def __init__(self, room_id, room_type, master_id):
         self.room_id = room_id
@@ -37,21 +38,20 @@ class Room():
             from collections import Counter
             self.user_role_num = Counter(self.user_role)
         else:
-            log().error("room config is not exists ! {0}".format(self.room_type))
+            logger.error("room config is not exists ! {0}".format(self.room_type))
 
-    #转化为JSON字符串
-    def toJson(self):
-        pass
+    def dump(self):
+        return {k: v for k, v in self.__dict__}
 
-    #获取指定类型玩家的数量
-    def getNumberByIdentity(self, identity):
+    def get_number_by_identity(self, identity):
+        """获取指定类型玩家的数量"""
         if identity in self.user_role_num.keys():
             return self.user_role_num[identity]
         else:
             return None
 
-    #房间是否满员
-    def isFull(self):
+    def is_full(self):
+        """房间是否满员"""
         if len(self.users) >= self.max_num:
             return True
         else:
@@ -61,95 +61,95 @@ class Room():
     # cmd  命令码
     # proto  内容
     # flag  默认True为给全部玩家发送， False为给除自己外的所有玩家发送
-    def sendMsgToAllUsers(self, cmd, proto, session, flag=True):
+    def send_msg_to_all_users(self, cmd, proto, session, flag=True):
         for user in self.users.values():
             if not flag and user.uuid == session.uuid:
                 continue
             else:
                 send(cmd, proto, user)
 
-    #发送消息给指定身份的玩家
-    def sendMsgToIdentityUsers(self, identity, cmd, proto):
+    def send_msg_to_identity_users(self, identity, cmd, proto):
+        """发送消息给指定身份的玩家"""
         for user in self.users.values():
             if user.role is not None and user.role.identity == identity:
                 send(cmd, proto, user)
                 break
 
-    #添加玩家
-    def addUser(self, user):
+    def add_user(self, user):
+        """添加玩家"""
         ret = False
         if user.uuid in self.users.keys():
-            log().error("addUser error ! uuid {0} is exists!".format(user.uuid))
+            logger.error("addUser error ! uuid {0} is exists!".format(user.uuid))
         else:
             self.users[user.uuid] = user
             ret = True
         return ret
 
-    #删除玩家
-    def delUser(self, uuid):
+    def del_user(self, uuid):
+        """删除玩家"""
         ret = False
         if uuid in self.users.keys():
             del self.users[uuid]
             ret = True
         else:
-            log().error("delUser error ! uuid {0} is not exists!".format(uuid))
+            logger.error("delUser error ! uuid {0} is not exists!".format(uuid))
         return ret
 
-    def _allocRoleByIndex_(self, index):
+    def alloc_role_by_index(self, index):
         if index in USER_ROLE_CLASS_DICT.keys():
             cls = USER_ROLE_CLASS_DICT[index]
             return cls()
         else:
-            log().error("alloc role error ! {0}".format(index))
+            logger.error("alloc role error ! {0}".format(index))
             return None
 
-    #分配身份
-    def allotRole(self):
-        tmpRole = copy.deepcopy(self.user_role)
+    def allot_role(self):
+        """分配身份"""
+        tmp_role = copy.deepcopy(self.user_role)
         for user in self.users.values():
             if user.role is None:
-                index = random.randint(0, len(tmpRole))
-                user.role = self._allocRoleByIndex_(tmpRole[index])
+                index = random.randint(0, len(tmp_role))
+                user.role = self.alloc_role_by_index(tmp_role[index])
                 if user.role is not None:
-                    del tmpRole[index]
+                    del tmp_role[index]
 
-    #解散房间
     def dismiss(self):
+        """解散房间"""
         for user in self.users.values():
             user.room_id = 0
         self.users.clear()
 
-    #玩家发言
-    def speak(self, userId, type, msg):
-        log().info("user {0} speak {1} type:{2}".format(userId, msg, type))
+    def speak(self, user_id, type, msg):
+        """玩家发言"""
+        logger.info("user {0} speak {1} type:{2}".format(user_id, msg, type))
         pass
 
-    #玩家投票
-    def vote(self, userId, otherId):
-        log().info("user {0} vote id {1}".format(userId, otherId))
+    def vote(self, user_id, other_id):
+        """玩家投票"""
+        logger.info("user {0} vote id {1}".format(user_id, other_id))
         pass
 
-    #玩家使用技能
-    def doSkill(self, userId, sid, targetId):
-        log().info("user {0} use skill {1} target is {2}".format(userId, sid, targetId))
+    def do_skill(self, user_id, sid, target_id):
+        """玩家使用技能"""
+        logger.info("user {0} use skill {1} target is {2}".format(user_id, sid, target_id))
         pass
 
-    #玩家准备
     def ready(self):
+        """玩家准备"""
         flag = True
         for user in self.users.values():
             if user.status == 0:
                 flag = False
                 break
         if flag:
-            #全部玩家准备好，则开始游戏
-            self.startGame()
+            # 全部玩家准备好，则开始游戏
+            self.start_game()
 
-    #开始游戏
-    def startGame(self):
+    def start_game(self):
+        """开始游戏"""
         self.judge = Judge(self)
         self.judge.start()
 
-    #结束游戏
-    def endGame(self):
+    def end_game(self):
+        """结束游戏"""
         pass

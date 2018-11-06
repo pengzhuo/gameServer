@@ -1,52 +1,56 @@
 # coding: utf-8
 
 from models.singleton import Singleton
-from logger.log import log
+from logger.log import logger
 
-#玩家管理
-class UserManager():
+
+class UserManager:
+    """玩家管理"""
     __metaclass__ = Singleton
 
-    users = None  #玩家集合
+    users = None  # 玩家集合
 
     def __init__(self):
         self.users = {}
 
-    #添加玩家
-    def addUser(self, user):
+    def add_user(self, user):
+        """添加玩家"""
         ret = False
         if user.uuid in self.users.keys():
-            log().error("addUser user {0} is exists!".format(user.uuid))
+            logger.error("addUser user {0} is exists!".format(user.uuid))
         else:
             self.users[user.uuid] = user
             ret = True
         return ret
 
-    #删除玩家
-    def delUser(self, uuid):
+    def del_user(self, uuid):
+        """删除玩家"""
         ret = False
         if uuid in self.users.keys():
             del self.users[uuid]
             ret = True
         else:
-            log().error("delUser user {0} is not exists!".format(uuid))
+            logger.error("delUser user {0} is not exists!".format(uuid))
         return ret
 
-    #查找玩家
-    def findUser(self, uuid):
+    def find_user(self, uuid):
+        """查找玩家"""
         user = None
         if uuid in self.users.keys():
             user = self.users[uuid]
         else:
-            log().error("findUser user {0} is not exists!".format(uuid))
+            logger.error("findUser user {0} is not exists!".format(uuid))
         return user
 
-    #更新玩家信息
-    def updateUser(self, user):
+    def update_user(self, user):
+        """更新玩家信息"""
         ret = False
         if user.uuid in self.users.keys():
             self.users[user.uuid] = user
             ret = True
         else:
-            log().error("updateUser user {0} is not exists!".format(user.uuid))
+            logger.error("updateUser user {0} is not exists!".format(user.uuid))
         return ret
+
+
+user_manager = UserManager()

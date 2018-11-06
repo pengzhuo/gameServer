@@ -3,7 +3,8 @@
 from skills.base import Base
 from common.constDefine import *
 
-class Gun_skill(Base):
+
+class GunSkill(Base):
     def __init__(self):
         Base.__init__(self, USER_SKILL_GUN)
         self.hit = 1

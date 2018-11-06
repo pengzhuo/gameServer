@@ -3,10 +3,11 @@
 from models.base import Base
 from common.constDefine import *
 
-#守护者
-class Guardian_User(Base):
+
+class GuardianUser(Base):
+    """守护者"""
     def __init__(self):
         Base.__init__(self, USER_IDENTITY_GUARDIAN)
 
-    def doSkill(self, id):
-        print USER_NAME_DICT[self.identity]
+    def do_skill(self, id):
+        USER_NAME_DICT[self.identity]

@@ -3,10 +3,11 @@
 from models.base import Base
 from common.constDefine import *
 
-#复仇者
-class Avenger_User(Base):
+
+class AvengerUser(Base):
+    """复仇者"""
     def __init__(self):
         Base.__init__(self, USER_IDENTITY_AVENGER)
 
-    def doSkill(self, id):
-        print USER_NAME_DICT[self.identity]
+    def do_skill(self, id):
+        USER_NAME_DICT[self.identity]
